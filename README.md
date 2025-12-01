@@ -1,33 +1,32 @@
-[![Semantic Router](https://i.ibb.co.com/g423grt/semantic-router-banner.png)](https://aurelio.ai)
+# FluxGate
+
+[![FluxGate](https://i.ibb.co.com/g423grt/semantic-router-banner.png)](https://github.com/wsyjwps1983/FluxGate)
 
 <p>
 <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/semantic-router?logo=python&logoColor=gold" />
-<a href="https://github.com/aurelio-labs/semantic-router/graphs/contributors"><img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/aurelio-labs/semantic-router" />
-<a href="https://github.com/aurelio-labs/semantic-router/commits/main"><img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/aurelio-labs/semantic-router" />
-<img alt="" src="https://img.shields.io/github/repo-size/aurelio-labs/semantic-router" />
-<a href="https://github.com/aurelio-labs/semantic-router/issues"><img alt="GitHub Issues" src="https://img.shields.io/github/issues/aurelio-labs/semantic-router" />
-<a href="https://github.com/aurelio-labs/semantic-router/pulls"><img alt="GitHub Pull Requests" src="https://img.shields.io/github/issues-pr/aurelio-labs/semantic-router" />
-<img src="https://codecov.io/gh/aurelio-labs/semantic-router/graph/badge.svg?token=H8OOMV2TUF" />
-<a href="https://github.com/aurelio-labs/semantic-router/blob/main/LICENSE"><img alt="Github License" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+<a href="https://github.com/wsyjwps1983/FluxGate/graphs/contributors"><img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/wsyjwps1983/FluxGate" />
+<a href="https://github.com/wsyjwps1983/FluxGate/commits/main"><img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/wsyjwps1983/FluxGate" />
+<img alt="" src="https://img.shields.io/github/repo-size/wsyjwps1983/FluxGate" />
+<a href="https://github.com/wsyjwps1983/FluxGate/issues"><img alt="GitHub Issues" src="https://img.shields.io/github/issues/wsyjwps1983/FluxGate" />
+<a href="https://github.com/wsyjwps1983/FluxGate/pulls"><img alt="GitHub Pull Requests" src="https://img.shields.io/github/issues-pr/wsyjwps1983/FluxGate" />
+<a href="https://github.com/wsyjwps1983/FluxGate/blob/main/LICENSE"><img alt="Github License" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
 </p>
 
-Semantic Router is a superfast decision-making layer for your LLMs and agents. Rather than waiting for slow LLM generations to make tool-use decisions, we use the magic of semantic vector space to make those decisions — _routing_ our requests using _semantic_ meaning.
-
-#### [Read the Docs](https://docs.aurelio.ai/semantic-router/get-started/introduction)
+FluxGate is a superfast decision-making layer for your LLMs and agents. Rather than waiting for slow LLM generations to make tool-use decisions, we use the magic of semantic vector space to make those decisions — _routing_ our requests using _semantic_ meaning.
 
 ---
 
 ## Quickstart
 
-To get started with _semantic-router_ we install it like so:
+To get started with FluxGate we install it like so:
 
 ```
 pip install -qU semantic-router
 ```
 
-❗️ _If wanting to use a fully local version of semantic router you can use `HuggingFaceEncoder` and `LlamaCppLLM` (`pip install -qU "semantic-router[local]"`, see [here](https://github.com/aurelio-labs/semantic-router/blob/main/docs/05-local-execution.ipynb)). To use the `HybridRouteLayer` you must `pip install -qU "semantic-router[hybrid]"`._
+❗️ _If wanting to use a fully local version of FluxGate you can use `LocalEncoder` (`pip install -qU "semantic-router[local]"`). To use the `HybridRouter` you must have the required dependencies installed._
 
-We begin by defining a set of `Route` objects. These are the decision paths that the semantic router can decide to use, let's try two simple routes for now — one for talk on _politics_ and another for _chitchat_:
+We begin by defining a set of `Route` objects. These are the decision paths that the FluxGate can decide to use, let's try two simple routes for now — one for talk on _politics_ and another for _chitchat_:
 
 ```python
 from semantic_router import Route
@@ -61,94 +60,195 @@ chitchat = Route(
 routes = [politics, chitchat]
 ```
 
-We have our routes ready, now we initialize an embedding / encoder model. We currently support a `CohereEncoder` and `OpenAIEncoder` — more encoders will be added soon. To initialize them we do:
+## Encoders
+
+FluxGate supports multiple encoders for generating embeddings, including support for SiliconFlow API. Here are some examples:
+
+### SiliconFlow Encoder
 
 ```python
 import os
-from semantic_router.encoders import CohereEncoder, OpenAIEncoder
+from semantic_router.encoders import SiliconFlowEncoder
 
-# for Cohere
-os.environ["COHERE_API_KEY"] = "<YOUR_API_KEY>"
-encoder = CohereEncoder()
+# Set SiliconFlow API key
+os.environ["SILICONFLOW_API_KEY"] = "<YOUR_API_KEY>"
 
-# or for OpenAI
-os.environ["OPENAI_API_KEY"] = "<YOUR_API_KEY>"
-encoder = OpenAIEncoder()
+# Initialize SiliconFlowEncoder with a Chinese model
+encoder = SiliconFlowEncoder(
+    name="BAAI/bge-large-zh-v1.5",  # Chinese model
+    score_threshold=0.7
+)
 ```
 
-With our `routes` and `encoder` defined we now create a `RouteLayer`. The route layer handles our semantic decision making.
+### Other Encoders
+
+```python
+import os
+from semantic_router.encoders import OpenAIEncoder, CohereEncoder, LocalEncoder
+
+# OpenAI Encoder
+os.environ["OPENAI_API_KEY"] = "<YOUR_API_KEY>"
+openai_encoder = OpenAIEncoder()
+
+# Cohere Encoder
+os.environ["COHERE_API_KEY"] = "<YOUR_API_KEY>"
+cohere_encoder = CohereEncoder()
+
+# Local Encoder (fully local)
+local_encoder = LocalEncoder(name="all-MiniLM-L6-v2")
+```
+
+## Semantic Router
+
+With our `routes` and `encoder` defined we now create a `SemanticRouter`. The router handles our semantic decision making.
 
 ```python
 from semantic_router.routers import SemanticRouter
 
-rl = SemanticRouter(encoder=encoder, routes=routes, auto_sync="local")
+router = SemanticRouter(encoder=encoder, routes=routes, auto_sync="local")
 ```
 
-We can now use our route layer to make super fast decisions based on user queries. Let's try with two queries that should trigger our route decisions:
-
-```python
-rl("don't you love politics?").name
-```
-
-```
-[Out]: 'politics'
-```
-
-Correct decision, let's try another:
+We can now use our router to make super fast decisions based on user queries:
 
 ```python
-rl("how's the weather today?").name
+router("don't you love politics?").name
+# Output: 'politics'
+
+router("how's the weather today?").name
+# Output: 'chitchat'
+
+# Unrelated query returns None
+result = router("I'm interested in learning about llama 2")
+print(result)  # Output: None
 ```
 
-```
-[Out]: 'chitchat'
-```
+## Dynamic Routes
 
-We get both decisions correct! Now lets try sending an unrelated query:
+Dynamic routes allow you to generate parameters and handle function calls dynamically. Here's an example:
 
 ```python
-rl("I'm interested in learning about llama 2").name
+from semantic_router import Route
+from semantic_router.routers import SemanticRouter
+
+# Define a dynamic route for weather queries
+weather = Route(
+    name="weather",
+    utterances=[
+        "what's the weather like in {city}?",
+        "how's the weather in {city} today?",
+        "show me the forecast for {city}",
+    ],
+    function_call={
+        "name": "get_weather",
+        "description": "Get the current weather for a specific city",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string",
+                    "description": "The city to get weather for"
+                },
+                "units": {
+                    "type": "string",
+                    "enum": ["celsius", "fahrenheit"],
+                    "default": "celsius"
+                }
+            },
+            "required": ["city"]
+        }
+    }
+)
+
+routes = [weather]
+
+# Initialize router with dynamic route
+router = SemanticRouter(encoder=encoder, routes=routes)
+
+# Test with a weather query
+result = router("what's the weather like in Beijing?")
+print(f"Route: {result.name}")
+print(f"Function Call: {result.function_call}")
 ```
 
-```
-[Out]:
-```
+## Hybrid Router
 
-In this case, no decision could be made as we had no matches — so our route layer returned `None`!
+Hybrid Router combines dense and sparse embeddings for improved performance. Here's an example:
+
+```python
+from semantic_router import Route
+from semantic_router.routers import HybridRouter
+from semantic_router.encoders import LocalEncoder, BM25Encoder
+from semantic_router.index import FaissIndex
+
+# Define routes
+politics = Route(
+    name="politics",
+    utterances=[
+        "isn't politics the best thing ever",
+        "why don't you tell me about your political opinions",
+        "don't you just love the president",
+    ],
+)
+
+chitchat = Route(
+    name="chitchat",
+    utterances=[
+        "how's the weather today?",
+        "how are things going?",
+        "lovely weather today",
+    ],
+)
+
+routes = [politics, chitchat]
+
+# Initialize encoders and index
+encoder = LocalEncoder(name="all-MiniLM-L6-v2")
+sparse_encoder = BM25Encoder()
+index = FaissIndex()
+
+# Initialize HybridRouter with alpha parameter (0.0 = sparse only, 1.0 = dense only)
+router = HybridRouter(
+    encoder=encoder,
+    sparse_encoder=sparse_encoder,
+    index=index,
+    routes=routes,
+    alpha=0.3  # Balance between dense and sparse embeddings
+)
+
+# Test the hybrid router
+result = router("how's the weather in New York?")
+print(f"Route: {result.name}")
+print(f"Similarity Score: {result.similarity_score}")
+```
 
 ## Integrations
 
-The _encoders_ of semantic router include easy-to-use integrations with [Cohere](https://github.com/aurelio-labs/semantic-router/blob/main/semantic_router/encoders/cohere.py), [OpenAI](https://github.com/aurelio-labs/semantic-router/blob/main/docs/encoders/openai-embed-3.ipynb), [Hugging Face](https://github.com/aurelio-labs/semantic-router/blob/main/docs/encoders/huggingface.ipynb), [FastEmbed](https://github.com/aurelio-labs/semantic-router/blob/main/docs/encoders/fastembed.ipynb), and [more](https://github.com/aurelio-labs/semantic-router/tree/main/semantic_router/encoders) — we even support [multi-modality](https://github.com/aurelio-labs/semantic-router/blob/main/docs/07-multi-modal.ipynb)!.
+FluxGate includes easy-to-use integrations with various services:
 
-Our utterance vector space also integrates with [Pinecone](https://github.com/aurelio-labs/semantic-router/blob/main/docs/indexes/pinecone.ipynb) and [Qdrant](https://github.com/aurelio-labs/semantic-router/blob/main/docs/indexes/qdrant.ipynb)!
-
----
+- **Encoders**: SiliconFlow, OpenAI, Cohere, Hugging Face, FastEmbed, Local Encoders
+- **Vector Databases**: Pinecone, Qdrant, Faiss (local)
+- **LLMs**: OpenAI, Mistral, Ollama, Cohere, and more
+- **Frameworks**: LangChain, GraphAI
 
 ## 📚 Resources
 
-### Docs
+### Documentation
 
-| Notebook | Description |
+- [API Usage Manual](docs/API_USAGE_MANUAL.md)
+- [Deployment Guide](docs/DEPLOYMENT_GUIDE.md)
+- [Threshold Optimization](docs/THRESHOLD_OPTIMIZATION.md)
+
+### Examples
+
+| Example | Description |
 | -------- | ----------- |
-| [Introduction](https://github.com/aurelio-labs/semantic-router/blob/main/docs/00-introduction.ipynb) | Introduction to Semantic Router and static routes |
-| [Dynamic Routes](https://github.com/aurelio-labs/semantic-router/blob/main/docs/02-dynamic-routes.ipynb) | Dynamic routes for parameter generation and functionc calls |
-| [Save/Load Layers](https://github.com/aurelio-labs/semantic-router/blob/main/docs/01-save-load-from-file.ipynb) | How to save and load `RouteLayer` from file |
-| [LangChain Integration](https://github.com/aurelio-labs/semantic-router/blob/main/docs/03-basic-langchain-agent.ipynb) | How to integrate Semantic Router with LangChain Agents |
-| [Local Execution](https://github.com/aurelio-labs/semantic-router/blob/main/docs/05-local-execution.ipynb) | Fully local Semantic Router with dynamic routes — *local models such as Mistral 7B outperform GPT-3.5 in most tests* |
-| [Route Optimization](https://github.com/aurelio-labs/semantic-router/blob/main/docs/06-threshold-optimization.ipynb) | How to train route layer thresholds to optimize performance |
-| [Multi-Modal Routes](https://github.com/aurelio-labs/semantic-router/blob/main/docs/07-multi-modal.ipynb) | Using multi-modal routes to identify Shrek vs. not-Shrek pictures |
+| [Dynamic Routes](docs/02-dynamic-routes.ipynb) | Dynamic routes for parameter generation and function calls |
+| [Local Execution](docs/05-local-execution.ipynb) | Fully local FluxGate with dynamic routes |
+| [Hybrid Router](docs/examples/hybrid-router.ipynb) | Using HybridRouter for improved performance |
+| [SiliconFlow Integration](build_router_with_siliconflow.py) | Example of using SiliconFlowEncoder |
 
-### Online Course
+---
 
-[![Semantic Router Course](https://github.com/aurelio-labs/assets/blob/main/images/aurelio-1080p-header-dark-semantic-router.jpg)](https://www.aurelio.ai/course/semantic-router)
+## License
 
-### Community
-
-- Dimitrios Manias, Ali Chouman, Abdallah Shami, [Semantic Routing for Enhanced Performance of LLM-Assisted Intent-Based 5G Core Network Management and Orchestration](https://arxiv.org/abs/2404.15869), IEEE GlobeCom 2024
-- Julian Horsey, [Semantic Router superfast decision layer for LLMs and AI agents](https://www.geeky-gadgets.com/semantic-router-superfast-decision-layer-for-llms-and-ai-agents/), Geeky Gadgets
-- azhar, [Beyond Basic Chatbots: How Semantic Router is Changing the Game](https://medium.com/ai-insights-cobet/beyond-basic-chatbots-how-semantic-router-is-changing-the-game-783dd959a32d), AI Insights @ Medium
-- Daniel Avila, [Semantic Router: Enhancing Control in LLM Conversations](https://blog.codegpt.co/semantic-router-enhancing-control-in-llm-conversations-68ce905c8d33), CodeGPT @ Medium
-- Yogendra Sisodia, [Stop Chat-GPT From Going Rogue In Production With Semantic Router](https://medium.com/@scholarly360/stop-chat-gpt-from-going-rogue-in-production-with-semantic-router-937a4768ae19), Medium
-- Aniket Hingane, [LLM Apps: Why you Must Know Semantic Router in 2024: Part 1](https://medium.com/@learn-simplified/llm-apps-why-you-must-know-semantic-router-in-2024-part-1-bfbda81374c5), Medium
-- Adrien Sales, [🔀 Semantic Router w. ollama/gemma2 : real life 10ms hotline challenge 🤯](https://dev.to/adriens/semantic-router-w-ollamagemma2-real-life-10ms-hotline-challenge-1i3f)
-- Adrien Sales, [Kaggle Notebook 🔀 Semantic Router: `ollama`/ `gemma2:9b` hotline](https://www.kaggle.com/code/adriensales/semantic-router-ollama-gemma2-hotline/notebook)
+FluxGate is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
