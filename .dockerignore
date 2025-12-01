@@ -1,0 +1,49 @@
+# 忽略的文件和目录
+
+# 版本控制
+.git
+.gitignore
+
+# 测试文件
+/tests
+/pytest_cache
+
+# 文档
+/docs
+*.ipynb
+*.md
+
+# 环境配置
+.env
+.env.example
+
+# Python缓存
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# 临时文件
+*.tmp
+*.temp
+/tmp
+
+# 日志文件
+*.log
+logs
+
+# IDE配置
+.vscode
+.idea
+*.swp
+*.swo
+
+# 构建输出
+dist
+build
+*.egg-info
+
+# 其他
+.DS_Store
+*.bak
+*.backup

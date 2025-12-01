@@ -1,0 +1,361 @@
+{
+  "total_tests": 45,
+  "correct": 28,
+  "wrong": 9,
+  "no_route": 8,
+  "accuracy": 0.6222222222222222,
+  "intent_performance": {
+    "research_report": {
+      "total": 9,
+      "correct": 8,
+      "wrong": 1,
+      "no_route": 0,
+      "accuracy": 0.8888888888888888
+    },
+    "work_tools": {
+      "total": 15,
+      "correct": 3,
+      "wrong": 12,
+      "no_route": 0,
+      "accuracy": 0.2
+    },
+    "creative_case": {
+      "total": 7,
+      "correct": 4,
+      "wrong": 3,
+      "no_route": 0,
+      "accuracy": 0.5714285714285714
+    },
+    "summary": {
+      "total": 7,
+      "correct": 6,
+      "wrong": 1,
+      "no_route": 0,
+      "accuracy": 0.8571428571428571
+    },
+    "other": {
+      "total": 7,
+      "correct": 7,
+      "wrong": 0,
+      "no_route": 0,
+      "accuracy": 1.0
+    }
+  },
+  "detailed_results": [
+    {
+      "question": "我们要做一个连锁餐饮行业的消费者洞察报告，请审核附件里的内容，并对附件中的研究框架提出修改意见",
+      "expected": "research_report",
+      "predicted": "research_report",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "想要通过人群洞察，来指导奈雪2026年的产品策略，请给我输出一份完整的研究框架。",
+      "expected": "research_report",
+      "predicted": "research_report",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "好来适合在哪些渠道铺货和媒介投放",
+      "expected": "research_report",
+      "predicted": "research_report",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "这个行业目前的发展情况是什么样子？请帮我输出一份报告",
+      "expected": "research_report",
+      "predicted": "research_report",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "参考瑞幸每次联名活动都很成功，你觉得对于连锁餐饮企业来说，选择联名的ip有什么标准？帮我制定一个ip选择分析框架",
+      "expected": "research_report",
+      "predicted": "research_report",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "你好，帮我洞察一下1月到6月中每个月的，18-35岁女性的功能（或工具）需求。例如：1月有驱寒保养的需求、6月有防晒、降暑的需求",
+      "expected": "research_report",
+      "predicted": "work_tools",
+      "correct": false,
+      "score": 0.6
+    },
+    {
+      "question": "奈雪的三大人群「女性白领」、「女大学生」、「宝妈&亲子家庭」，在明年2026年1月上半月、1月下半月、2月上半月、2月下半月、3月上半月、3月下半月、4月上半月、4月下半月、5月上半月、5月下半月、6月上半月、6月下半月的情感价值洞察",
+      "expected": "research_report",
+      "predicted": "research_report",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "现在华莱士要去美国开店，我需要了解哪些信息可以做出判断我在美国市场应该有哪些打发",
+      "expected": "research_report",
+      "predicted": "research_report",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "基于附件内容，描述下冰淇淋行业现状和市场前景",
+      "expected": "research_report",
+      "predicted": "research_report",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "我在帮一个餐饮品牌搭建其人群-场景-产品的战略模型，请你帮我搭建一个框架，即人群如何拆分？场景如何拆分？产品如何对应人群和场景需求？",
+      "expected": "work_tools",
+      "predicted": "research_report",
+      "correct": false,
+      "score": 0.6
+    },
+    {
+      "question": "最近几年连锁餐饮行业经常做一些ip联名活动，带来了很好的引流效果，我正在帮一个万店连锁品牌做年度营销规划，选择一些适合联名的ip，但是有一个问题比较困惑我，就是“选择标准”，我该如何从众多ip中选出最适合这个品牌的ip呢？请帮我搭建一个联名ip的分析框架，要求是具有一些量化指标，便于我对于备选的ip进行综合评分，最终选择出最适合、性价比最高的ip进行合作",
+      "expected": "work_tools",
+      "predicted": "creative_case",
+      "correct": false,
+      "score": 0.6
+    },
+    {
+      "question": "给我深度讲解一下什么是麦肯锡金字塔模型？我应该在什么情况下使用？",
+      "expected": "work_tools",
+      "predicted": "other",
+      "correct": false,
+      "score": 0.3
+    },
+    {
+      "question": "作为一个初级营销咨询顾问，我最应该学习的10个方法论或模型是什么？",
+      "expected": "work_tools",
+      "predicted": "creative_case",
+      "correct": false,
+      "score": 0.6
+    },
+    {
+      "question": "作为一家营销咨询公司，我们公司有策划、设计师、创意、运营等不同专业能力的同事，我们希望在社交媒体上扩大公司的影响力，如果我想为我们公司规划账号矩阵及相关定位，我该如何开展我的工作？请帮我制定一个可操作的工作流程以及对应的解题方法论",
+      "expected": "work_tools",
+      "predicted": "creative_case",
+      "correct": false,
+      "score": 0.6
+    },
+    {
+      "question": "请作为老师，详细的教会我什么是麦肯锡空雨伞模型以及该如何应用",
+      "expected": "work_tools",
+      "predicted": "other",
+      "correct": false,
+      "score": 0.3
+    },
+    {
+      "question": "请给我解释一下什么是麦肯锡空雨伞模型，并举例说明我该如何在我的工作中应用它",
+      "expected": "work_tools",
+      "predicted": "other",
+      "correct": false,
+      "score": 0.3
+    },
+    {
+      "question": "我想详细的知道什么是麦肯锡空雨伞模型，能帮我解决什么问题，以及我可以在什么情况下使用它",
+      "expected": "work_tools",
+      "predicted": "other",
+      "correct": false,
+      "score": 0.3
+    },
+    {
+      "question": "你觉得选址开一家餐饮店第一步是什么？或者最重要的一步是什么",
+      "expected": "work_tools",
+      "predicted": "other",
+      "correct": false,
+      "score": 0.3
+    },
+    {
+      "question": "如何科学地进行餐饮店选址的第一步关键步骤",
+      "expected": "work_tools",
+      "predicted": "summary",
+      "correct": false,
+      "score": 0.6
+    },
+    {
+      "question": "我现在要给华莱士美国店做品牌顶层设计，然后我要给美国的合伙人做访谈，我的访谈提纲应该怎么写，要设计哪些问题。",
+      "expected": "work_tools",
+      "predicted": "work_tools",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "我现在要帮一家连锁餐饮企业做整店空间设计方案，请告诉我一个最佳的工作流程、需要的方法论或知识、需要避开的坑",
+      "expected": "work_tools",
+      "predicted": "work_tools",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "接下来我要给一个餐饮企业设计单店模型，核心内容是经营成本结构，我该怎么开展我的工作，请给我一个标准的工作流程，以及给我一个完整的单店成本模型的标准框架",
+      "expected": "work_tools",
+      "predicted": "work_tools",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "请给我讲解一下什么是麦肯锡空雨伞模型，以及什么情况下、该如何使用",
+      "expected": "work_tools",
+      "predicted": "other",
+      "correct": false,
+      "score": 0.3
+    },
+    {
+      "question": "策划一个连锁品牌的ip联名营销活动，需要注意哪些环节？活动方案的标准框架是什么",
+      "expected": "work_tools",
+      "predicted": "creative_case",
+      "correct": false,
+      "score": 0.6
+    },
+    {
+      "question": "餐饮品牌的开业活动",
+      "expected": "creative_case",
+      "predicted": "creative_case",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "现在有一家热轻食餐饮店 在十二月的深圳开业 有什么好的开业建议方案",
+      "expected": "creative_case",
+      "predicted": "other",
+      "correct": false,
+      "score": 0.3
+    },
+    {
+      "question": "如何把w融入到中式纹样中",
+      "expected": "creative_case",
+      "predicted": "other",
+      "correct": false,
+      "score": 0.3
+    },
+    {
+      "question": "你是华莱士的cmo，现在附件里有一个华莱士和第五人格联名的活动方案，请你针对方案提出建议，并提出关于活动主题和活动玩法的想法",
+      "expected": "creative_case",
+      "predicted": "creative_case",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "奈雪（现制茶饮品牌）可以在1月到6月为这些女性群体提供哪些工具价值",
+      "expected": "creative_case",
+      "predicted": "work_tools",
+      "correct": false,
+      "score": 0.6
+    },
+    {
+      "question": "如何策划一场成功的餐饮品牌周年庆活动",
+      "expected": "creative_case",
+      "predicted": "creative_case",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "餐饮品牌如何利用社交媒体进行有效的营销推广",
+      "expected": "creative_case",
+      "predicted": "creative_case",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "帮我总结附件中的内容，输出该行业的总结",
+      "expected": "summary",
+      "predicted": "summary",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "您好，帮我总结附件中的内容，输出该行业的总结",
+      "expected": "summary",
+      "predicted": "summary",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "帮我总结附件中的内容，输出该行业的总结，谢谢",
+      "expected": "summary",
+      "predicted": "summary",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "请总结附件中关于餐饮行业发展趋势的核心观点",
+      "expected": "summary",
+      "predicted": "summary",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "帮我提炼附件报告中的关键数据和结论",
+      "expected": "summary",
+      "predicted": "summary",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "请简要总结附件中提到的营销策略的优缺点",
+      "expected": "summary",
+      "predicted": "summary",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "帮我总结附件中关于消费者行为分析的主要发现",
+      "expected": "summary",
+      "predicted": "research_report",
+      "correct": false,
+      "score": 0.6
+    },
+    {
+      "question": "2025年11月17号的小红书热门话题",
+      "expected": "other",
+      "predicted": "other",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "是口腔清洁",
+      "expected": "other",
+      "predicted": "other",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "还有什么需要避坑的东西？",
+      "expected": "other",
+      "predicted": "other",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "您好，2025年11月17号的小红书热门话题",
+      "expected": "other",
+      "predicted": "other",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "是口腔清洁，谢谢",
+      "expected": "other",
+      "predicted": "other",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "今天的天气怎么样？",
+      "expected": "other",
+      "predicted": "other",
+      "correct": true,
+      "score": 0.9
+    },
+    {
+      "question": "你能帮我推荐一本好书吗？",
+      "expected": "other",
+      "predicted": "other",
+      "correct": true,
+      "score": 0.9
+    }
+  ]
+}

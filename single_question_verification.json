@@ -1,0 +1,33 @@
+{
+  "question": "有哪些工具可以在营销推广中进行使用",
+  "best_match": "None",
+  "best_score": 0.39089342598187493,
+  "threshold": 0.7,
+  "all_scores": [
+    {
+      "intent": "summary",
+      "score": 0.39089342598187493,
+      "is_match": false
+    },
+    {
+      "intent": "research_report",
+      "score": 0.3768704665292152,
+      "is_match": false
+    },
+    {
+      "intent": "creative_case",
+      "score": 0.3497339037281614,
+      "is_match": false
+    },
+    {
+      "intent": "work_tools",
+      "score": 0.3423606412104563,
+      "is_match": false
+    },
+    {
+      "intent": "other",
+      "score": 0.29557974845828955,
+      "is_match": false
+    }
+  ]
+}
